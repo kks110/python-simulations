@@ -7,5 +7,5 @@ class OrangeCreature(BaseCreature):
         self.type = 'orange'
         self.spawn_rate = 0
         self.death_chance = 10
-        self.replication_chance = 5
+        self.replication_chance = 10
         self.mutation_chance = 10
