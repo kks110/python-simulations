@@ -10,7 +10,6 @@ def run():
         'base_creatures': {},
         'orange_creatures': {}
     }
-    # Need to think about crowding and competition so population doesn't grow forever.
 
     for _ in range(1, 3):
         base_creatures.append(BaseCreature())
