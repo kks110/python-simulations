@@ -16,13 +16,13 @@ class World:
 
     def spawn_food(self):
         for _ in range(0, self.food_per_day):
-            food_space_x, food_space_y = self.__find_free_space()
-            self.world_map[food_space_x][food_space_y] = self.FOOD
+            food_space_y, food_space_x = self.__find_free_space()
+            self.world_map[food_space_y][food_space_x] = self.FOOD
 
     def spawn_creature(self):
-        creature_space_x, creature_space_y = self.__find_free_space()
-        self.world_map[creature_space_x][creature_space_y] = self.CREATURE
-        return creature_space_x, creature_space_y
+        creature_space_y, creature_space_x = self.__find_free_space()
+        self.world_map[creature_space_y][creature_space_x] = self.CREATURE
+        return creature_space_y, creature_space_x
 
     def __find_free_space(self):
         space = self.empty_space[random.randint(0, len(self.empty_space) - 1)]
@@ -30,11 +30,11 @@ class World:
         return tuple(space)
 
     def __generate_map(self):
-        world = np.ones((self.world_x, self.world_y))
+        world = np.ones((self.world_y, self.world_x))
         world[1:-1, 1:-1] = self.EMPTY
         free_spaces = []
-        for x in range(0, self.world_x - 1):
-            for y in range(0, self.world_y - 1):
-                if world[x][y] == self.EMPTY:
-                    free_spaces.append([x,y])
+        for y in range(0, self.world_y - 1):
+            for x in range(0, self.world_x - 1):
+                if world[y][x] == self.EMPTY:
+                    free_spaces.append([y,x])
         return world, free_spaces
