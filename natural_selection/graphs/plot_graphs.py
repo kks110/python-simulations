@@ -18,8 +18,8 @@ def plot_graph(y_location, x_location, world_y, world_x):
     # giving a title to my graph
     plt.title('Creatures Path')
 
-    plt.ylim([0, world_y])
-    plt.xlim([0, world_x])
+    plt.ylim([0, world_y - 1])
+    plt.xlim([0, world_x - 1])
 
     plt.grid()
 
