@@ -51,9 +51,9 @@ class Creature:
 
         if visible_food:
             nearest = self.__nearest_food(move_options['food'])
-            return self.__determine_move(nearest)
+            return self.__determine_move_to_food(nearest)
         if visible_free_spaces:
-            return random.choice(move_options['free_space'])
+            return self.__determine_move(move_options['free_space'])
 
         return self.location
 
@@ -61,8 +61,7 @@ class Creature:
         if len(food_options) == 1:
             return food_options[0]
         options = {}
-        location_y = self.location[0]
-        location_x = self.location[1]
+        location_y, location_x = self.location
         for choice in food_options:
             option_y, option_x = choice
             y_distance = abs(location_y - option_y)
@@ -80,7 +79,19 @@ class Creature:
         choice = random.choice(options[min(options.keys())])
         return choice
 
-    def __determine_move(self, food_location):
+    def __determine_move(self, move_options):
+        allowed_options = []
+        my_y, my_x = self.location
+        for option in move_options:
+            options_y, options_x = option
+            if abs(options_y - my_y) <= self.speed and abs(options_x - my_x) <= self.speed:
+                allowed_options.append(option)
+        if allowed_options:
+            return random.choice(allowed_options)
+        else:
+            return self.location
+
+    def __determine_move_to_food(self, food_location):
         new_location = []
         y_food, x_food = food_location
         y_creature, x_creature = self.location
@@ -102,17 +113,18 @@ class Creature:
         return tuple(new_location)
 
     def __movement_options(self, world):
-        my_y = self.location[0]
-        my_x = self.location[1]
+        my_y, my_x = self.location
         movement_options = {
             'food': [],
             'free_space': []
         }
         for y in range(-self.vision, self.vision + 1):
             for x in range(-self.vision, self.vision + 1):
-                potential_location = world.world_map[my_y + y][my_x + x]
-                if potential_location == world.FOOD:
-                    movement_options['food'].append((my_y + y, my_x + x))
-                if potential_location == world.EMPTY:
-                    movement_options['free_space'].append((my_y + y, my_x + x))
+                if abs(my_y + y) < world.world_y and abs(my_x + x) < world.world_x:
+                    if my_y + y >= 0 and my_x + x >= 0:
+                        potential_location = world.world_map[my_y + y][my_x + x]
+                        if potential_location == world.FOOD:
+                            movement_options['food'].append((my_y + y, my_x + x))
+                        if potential_location == world.EMPTY:
+                            movement_options['free_space'].append((my_y + y, my_x + x))
         return movement_options
