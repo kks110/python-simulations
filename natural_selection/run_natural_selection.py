@@ -6,10 +6,10 @@ from natural_selection.graphs.plot_creature_path import plot_path_of_creature
 def run():
     world = World(y=10, x=10, food_per_day=10)
     creatures = []
-    for _ in range(0, 10):
+    for _ in range(0, 1):
         creatures.append(Creature(world))
 
-    for _ in range(0, 2):
+    for _ in range(0, 1):
         world.spawn_food()
         for _ in range(0, 10):
             for creature in creatures:

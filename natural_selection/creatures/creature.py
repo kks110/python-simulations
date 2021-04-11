@@ -4,7 +4,7 @@ import random
 class Creature:
     def __init__(self, world):
         self.vision = 1
-        self.speed = 1
+        self.speed = 3
         self.food_consumed = 0
         self.location = world.spawn_creature()
         self.dead = False
@@ -14,13 +14,14 @@ class Creature:
         }
 
     def move(self, world):
-        move_location = self.__pick_move_location(world)
-        i_ate = world.move_creature_and_eat(self.location, move_location)
-        self.location = move_location
-        self.move_history['locations'].append(self.location)
-        if i_ate:
-            self.food_consumed += 1
-            self.move_history['food_consumed'].append(self.food_consumed)
+        for _ in range(0, self.speed):
+            move_location = self.__pick_move_location(world)
+            i_ate = world.move_creature_and_eat(self.location, move_location)
+            self.location = move_location
+            self.move_history['locations'].append(self.location)
+            if i_ate:
+                self.food_consumed += 1
+                self.move_history['food_consumed'].append(self.food_consumed)
 
     def spawn_new_creature(self, world):
         if self.food_consumed >= 2:
