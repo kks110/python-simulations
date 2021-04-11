@@ -3,7 +3,7 @@ import random
 
 
 class World:
-    def __init__(self, y, x):
+    def __init__(self, y, x, food_per_day):
         self.EMPTY = 0.0
         self.WORLD_EDGE = 1.0
         self.FOOD = 2.0
@@ -11,8 +11,10 @@ class World:
 
         self.world_x = x
         self.world_y = y
-        self.world_map, self.empty_spaces = self.__generate_map()
-        self.food_per_day = 10
+        self.world_map = self.__generate_map()
+        self.empty_spaces = []
+        self.food_per_day = food_per_day
+        self.__update_empty_spaces()
 
     def spawn_food(self):
         for _ in range(0, self.food_per_day):
@@ -56,17 +58,12 @@ class World:
     def __generate_map(self):
         world = np.ones((self.world_y, self.world_x))
         world[1:-1, 1:-1] = self.EMPTY
-        free_spaces = []
-        for y in range(0, self.world_y - 1):
-            for x in range(0, self.world_x - 1):
-                if world[y][x] == self.EMPTY:
-                    free_spaces.append((y,x))
-        return world, free_spaces
+        return world
 
     def __update_empty_spaces(self):
-        free_spaces = []
+        empty_spaces = []
         for y in range(0, self.world_y - 1):
             for x in range(0, self.world_x - 1):
                 if self.world_map[y][x] == self.EMPTY:
-                    free_spaces.append((y,x))
-        self.empty_spaces = free_spaces
+                    empty_spaces.append((y,x))
+        self.empty_spaces = empty_spaces
