@@ -4,7 +4,7 @@ from natural_selection.graphs.plot_creature_path import plot_path_of_creature
 
 
 def run():
-    world = World(y=10, x=10)
+    world = World(y=10, x=10, food_per_day=10)
     creatures = []
     for _ in range(0, 10):
         creatures.append(Creature(world))
@@ -23,6 +23,5 @@ def run():
             creature.end_day(world)
         creatures = creatures + new_creatures
         world.end_day()
-    print(len(creatures))
 
     plot_path_of_creature(creatures[0], world)
