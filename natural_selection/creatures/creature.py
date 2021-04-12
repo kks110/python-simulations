@@ -2,9 +2,9 @@ import random
 
 
 class Creature:
-    def __init__(self, world):
-        self.vision = 1
-        self.speed = 3
+    def __init__(self, world, vision, speed):
+        self.vision = vision
+        self.speed = speed
         self.food_consumed = 0
         self.location = world.spawn_creature()
         self.dead = False
@@ -24,8 +24,14 @@ class Creature:
                 self.move_history['food_consumed'].append(self.food_consumed)
 
     def spawn_new_creature(self, world):
+        vision_low_point = self.vision - 1 if self.vision > 0 else 1
+        vision_mutation = random.choice([vision_low_point, self.vision, self.vision + 1])
+
+        speed_low_point = self.speed - 1 if self.speed > 1 else 1
+        speed_mutation = random.choice([speed_low_point, self.speed, self.speed + 1])
+
         if self.food_consumed >= 2:
-            return Creature(world)
+            return Creature(world=world, vision=vision_mutation, speed=speed_mutation)
         return False
 
     def end_day(self, world):
