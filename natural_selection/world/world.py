@@ -17,7 +17,7 @@ class World:
         self.__update_empty_spaces()
 
     def spawn_food(self):
-        for _ in range(0, self.food_per_day):
+        for _ in range(self.food_per_day):
             food_space_y, food_space_x = self.__find_free_space()
             self.world_map[food_space_y][food_space_x] = self.FOOD
             self.__update_empty_spaces()
@@ -45,8 +45,8 @@ class World:
         return ate_food
 
     def end_day(self):
-        for y in range(0, self.world_y):
-            for x in range(0, self.world_x):
+        for y in range(self.world_y):
+            for x in range(self.world_x):
                 if self.world_map[y][x] == self.FOOD:
                     self.world_map[y][x] = self.EMPTY
         self.__update_empty_spaces()
@@ -62,8 +62,8 @@ class World:
 
     def __update_empty_spaces(self):
         empty_spaces = []
-        for y in range(0, self.world_y - 1):
-            for x in range(0, self.world_x - 1):
+        for y in range(self.world_y - 1):
+            for x in range(self.world_x - 1):
                 if self.world_map[y][x] == self.EMPTY:
                     empty_spaces.append((y,x))
         self.empty_spaces = empty_spaces

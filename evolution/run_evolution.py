@@ -29,9 +29,9 @@ def run():
                     else:
                         base_creatures_to_add += 1
 
-            for _ in range(0, base_creatures_to_add):
+            for _ in range(base_creatures_to_add):
                 base_creatures.append(BaseCreature())
-            for _ in range(0, orange_creatures_to_add):
+            for _ in range(orange_creatures_to_add):
                 orange_creatures.append(OrangeCreature())
 
         if len(orange_creatures) >= 2:
@@ -39,7 +39,7 @@ def run():
             for living_creature in orange_creatures:
                 if living_creature.should_i_reproduce():
                     creatures_to_add += 1
-            for _ in range(0, creatures_to_add):
+            for _ in range(creatures_to_add):
                 orange_creatures.append(OrangeCreature())
 
         for creature in base_creatures:

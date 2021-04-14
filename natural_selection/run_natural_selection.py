@@ -1,20 +1,21 @@
 from natural_selection.world.world import World
 from natural_selection.creatures.creature import Creature
 from natural_selection.graphs.graph_plotter import GraphPlotter
-
+from natural_selection.config.config import Config
 
 def run():
-    world = World(y=20, x=20, food_per_day=50)
+    config = Config()
+    world = World(y=config.world_y_axis, x=config.world_x_axis, food_per_day=config.world_food_per_day)
     creatures = []
     cycle_and_creature_count = []
     creatures_speed = {}
     creatures_vision = {}
-    for _ in range(0, 10):
-        creatures.append(Creature(world=world, vision=1, speed=1))
+    for _ in range(config.creatures_initial_creature_count):
+        creatures.append(Creature(world=world, vision=config.creatures_default_starting_vision, speed=config.creatures_default_starting_speed))
 
-    for cycle in range(0, 80):
+    for cycle in range(config.world_days):
         world.spawn_food()
-        for _ in range(0, 5):
+        for _ in range(config.world_ticks_per_day):
             for creature in creatures:
                 creature.move(world)
 

@@ -14,7 +14,7 @@ class Creature:
         }
 
     def move(self, world):
-        for _ in range(0, self.speed):
+        for _ in range(self.speed):
             move_location = self.__pick_move_location(world)
             i_ate = world.move_creature_and_eat(self.location, move_location)
             self.location = move_location
