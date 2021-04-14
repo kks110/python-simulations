@@ -3,6 +3,7 @@ from natural_selection.creatures.creature import Creature
 from natural_selection.graphs.graph_plotter import GraphPlotter
 from natural_selection.config.config import Config
 
+
 def run():
     config = Config()
     world = World(y=config.world_y_axis, x=config.world_x_axis, food_per_day=config.world_food_per_day)
