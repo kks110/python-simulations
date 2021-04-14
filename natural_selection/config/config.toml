@@ -1,0 +1,11 @@
+[world]
+y_axis = 20
+x_axis = 20
+food_per_day = 50
+days = 80
+ticks_per_day = 5
+
+[creatures]
+initial_creature_count = 10
+default_starting_vision = 1
+default_starting_speed = 1
