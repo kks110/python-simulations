@@ -10,7 +10,7 @@ def run():
     creatures_speed = {}
     creatures_vision = {}
     for _ in range(0, 10):
-        creatures.append(Creature(world=world, vision=3, speed=3))
+        creatures.append(Creature(world=world, vision=1, speed=1))
 
     for cycle in range(0, 80):
         world.spawn_food()
